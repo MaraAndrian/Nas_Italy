@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAS-INTO Italy | Christmas &amp; New Year 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --g:#0E4D32; --g2:#1f7a4d; --r:#C8102E; --o:#B8860B;
+  --bg:#F8F6F1; --card:#fff; --tx:#1d2420; --mu:#5b6660; --ln:#e3ddd0;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101a15; --card:#18251e; --tx:#eef1ec; --mu:#a5b2aa; --ln:#2a3a31; --o:#e0b23a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101a15; --card:#18251e; --tx:#eef1ec; --mu:#a5b2aa; --ln:#2a3a31; --o:#e0b23a;
+}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 "Instrument Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.1;margin:0}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+header{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+  background:var(--g);color:#fff;display:flex;justify-content:space-between;
+  align-items:center;padding:12px 5vw;flex-wrap:wrap;gap:8px;
+}
+header b{font:800 1.2rem Fraunces,serif}
+nav{display:flex;flex-wrap:wrap;gap:8px 18px}
+nav a{text-decoration:none;font-weight:600;font-size:.95rem;padding:4px 0}
+nav a:hover{text-decoration:underline}
+
+.hero{background:var(--g);color:#fff;padding:72px 5vw 90px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-90px;bottom:-110px;width:380px;height:380px;border-radius:50%;border:34px solid rgba(255,255,255,.1)}
+.hero h1{font-size:clamp(2.8rem,9vw,5.5rem);font-weight:800;max-width:9ch}
+.hero p{max-width:46ch;font-size:clamp(1rem,2.5vw,1.15rem);margin:18px 0 28px}
+.tag{color:#e8c25a;font-weight:600;margin-bottom:12px}
+
+.btn{
+  display:inline-block;background:var(--r);color:#fff;padding:13px 26px;
+  border-radius:999px;font-weight:600;text-decoration:none;cursor:pointer;
+  border:none;font-size:1rem;text-align:center;
+}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid #e8c25a;outline-offset:3px}
+
+.flag{height:6px;background:linear-gradient(90deg,#1f7a4d 33%,#fff 33% 66%,#C8102E 66%)}
+section{padding:64px 5vw;max-width:1100px;margin:0 auto}
+h2{font-size:clamp(1.9rem,5vw,2.8rem);color:var(--g);margin-bottom:8px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) h2{color:#7fd0a1}}
+.lead{color:var(--mu);margin:0 0 34px;max-width:60ch}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.offer{
+  background:var(--card);border:1px solid var(--ln);border-top:8px solid var(--c);
+  border-radius:6px;padding:26px;display:flex;flex-direction:column;gap:10px;
+}
+.offer h3{font-size:1.7rem;color:var(--c)}
+.meta{font-weight:600}
+.price{font:800 1.9rem Fraunces,serif;color:var(--c)}
+.price small{font:400 .9rem "Instrument Sans",sans-serif;color:var(--mu)}
+.offer ul{margin:0;padding-left:18px;color:var(--mu);flex:1}
+.offer .btn{background:var(--c);width:100%}
+
+.promo{background:var(--card);border-block:1px solid var(--ln);max-width:none}
+.promo div.in{max-width:1100px;margin:0 auto}
+.chips{display:flex;flex-wrap:wrap;gap:12px}
+.chips span{border:2px solid var(--g2);border-radius:999px;padding:8px 18px;font-weight:600}
+
+.contact{display:flex;flex-wrap:wrap;gap:40px;align-items:center}
+.contact p{margin:4px 0}
+
+footer{background:var(--g);color:#fff;text-align:center;padding:22px 5vw;font-size:.95rem}
+
+.ceo{
+  display:flex;align-items:center;gap:20px;background:var(--card);
+  border:1px solid var(--ln);border-radius:12px;padding:20px;margin-top:30px;flex-wrap:wrap;
+}
+.ceo img{
+  width:110px;height:110px;object-fit:cover;border-radius:50%;
+  border:4px solid var(--g);cursor:zoom-in;transition:transform .25s;
+}
+.ceo img:hover{transform:scale(1.05)}
+.ceo-info h3{margin:0;font-size:1.3rem}
+.ceo-info p{margin:4px 0;color:var(--mu)}
+
+#booking-section{display:none}
+.booking{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:30px;margin-top:30px}
+.booking h3{margin-bottom:20px;color:var(--g)}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-weight:600;margin-bottom:6px}
+.form-group input,.form-group select{
+  width:100%;padding:12px;border:1px solid var(--ln);border-radius:6px;
+  font:inherit;background:var(--bg);color:var(--tx);
+}
+.form-group input:focus,.form-group select:focus{outline:2px solid var(--g2);border-color:transparent}
+.promo-msg{margin-top:12px;font-weight:600;color:var(--g2)}
+
+.ticket{display:none;background:var(--g);color:#fff;border-radius:12px;padding:30px;text-align:center;margin-top:30px}
+.ticket h3{font-size:clamp(1.6rem,4vw,2rem);color:#e8c25a;margin-bottom:10px}
+.ticket p{margin:6px 0}
+.ticket .btn{margin-top:16px;background:var(--r)}
+
+.lightbox{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:60;justify-content:center;align-items:center;padding:20px;cursor:zoom-out;
+}
+.lightbox.active{display:flex}
+.lightbox img{
+  max-width:90vw;max-height:90vh;border-radius:12px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+@media (max-width:600px){
+  header{justify-content:center;text-align:center}
+  nav{justify-content:center}
+  .hero{padding:56px 6vw 70px}
+  section{padding:48px 6vw}
+  .ceo{flex-direction:column;text-align:center}
+  .contact{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header>
+  <b>NAS-INTO Italy</b>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#offers">Offers</a>
+    <a href="#deals">Deals</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div id="home" class="hero">
+  <div class="tag">Christmas &amp; New Year 2026</div>
+  <h1>NAS-INTO Italy</h1>
+  <p>Your Italian Christmas starts here! Three all-inclusive packs from Antananarivo to Rome, Florence and Venice, with the festive lights of Italy.</p>
+  <a class="btn" href="#offers">See the Christmas packs</a>
+</div>
+<div class="flag"></div>
+
+<section>
+  <h2>Our Story</h2>
+  <p class="lead">Founded in 2024, NAS-INTO Italy was born from a simple idea: make the magic of an Italian Christmas accessible to everyone from Madagascar.</p>
+  <div class="ceo">
+    <img src="45aacc5e-d44e-47bd-8f03-5da2a210752d.jfif" alt="CEO" onclick="openLightbox(this.src)">
+    <div class="ceo-info">
+      <h3>Our CEO</h3>
+      <p>Just a guy who loves Italy, Christmas, and making people smile.</p>
+      <p><em>Founded in 2024</em></p>
+    </div>
+  </div>
+</section>
+
+<section id="offers">
+  <h2>Christmas Packs 2026</h2>
+  <p class="lead">Prices are per person and include visa assistance. Book before 15 November 2026.</p>
+  <div class="grid">
+    <article class="offer" style="--c:#C8102E">
+      <h3>Classico</h3>
+      <div class="meta">5 days, 4 nights | 4-star hotel | Rome</div>
+      <ul>
+        <li>Round-trip flight from Antananarivo to Rome</li>
+        <li>Visa assistance</li>
+        <li>Daily breakfast</li>
+        <li>Christmas Eve and Christmas Day dinners</li>
+        <li>Panoramic tour of Rome</li>
+      </ul>
+      <div>Departs 23 December</div>
+      <div class="price">2,190 EUR <small>/ person</small></div>
+      <button class="btn" onclick="openBooking('Classico')">Book Classico</button>
+    </article>
+
+    <article class="offer" style="--c:#1f7a4d">
+      <h3>Dolce Vita</h3>
+      <div class="meta">8 days, 7 nights | Half board | 4-star hotel | Rome and Florence</div>
+      <ul>
+        <li>Flights and train</li>
+        <li>Visa assistance</li>
+        <li>Colosseum, Trevi Fountain, Vatican and Florence Duomo</li>
+        <li>Christmas dinner</li>
+      </ul>
+      <div>Departs 20 December</div>
+      <div class="price">3,090 EUR <small>/ person</small></div>
+      <button class="btn" onclick="openBooking('Dolce Vita')">Book Dolce Vita</button>
+    </article>
+
+    <article class="offer" style="--c:#B8860B">
+      <h3>Bella Italia</h3>
+      <div class="meta">13 days, 12 nights | 4-star hotel | Rome, Florence and Venice</div>
+      <ul>
+        <li>Flights and all train journeys</li>
+        <li>Visa assistance</li>
+        <li>Breakfast and dinner</li>
+        <li>All guided visits and a Venice gondola ride</li>
+        <li>New Year's Eve gala dinner</li>
+        <li>Airport transfers</li>
+      </ul>
+      <div>Departs 21 December</div>
+      <div class="price">4,690 EUR <small>/ person</small></div>
+      <button class="btn" onclick="openBooking('Bella Italia')">Book Bella Italia</button>
+    </article>
+  </div>
+</section>
+
+<section id="deals" class="promo">
+  <div class="in">
+    <h2>Book now and save on our all-inclusive packs</h2>
+    <p class="lead">These offers apply to all three Christmas packs.</p>
+    <div class="chips">
+      <span>-10% for groups of 5 or more</span>
+      <span>-30% for children under 12</span>
+      <span>-5% early bird before 31 October</span>
+      <span>Free eSIM</span>
+    </div>
+  </div>
+</section>
+
+<section id="booking-section">
+  <h2>Reserve your spot</h2>
+  <p class="lead">Fill in the form below and get your ticket instantly.</p>
+  <div class="booking">
+    <h3>Booking Form</h3>
+    <form id="bookingForm">
+      <div class="form-group">
+        <label for="pack">Select your pack</label>
+        <select id="pack" required>
+          <option value="">-- Choose a pack --</option>
+          <option value="Classico">Classico – 2,190 EUR</option>
+          <option value="Dolce Vita">Dolce Vita – 3,090 EUR</option>
+          <option value="Bella Italia">Bella Italia – 4,690 EUR</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="people">Number of people</label>
+        <input type="number" id="people" min="1" value="1" required>
+      </div>
+      <div class="form-group">
+        <label for="promo">Promo code (optional)</label>
+        <input type="text" id="promo" placeholder="e.g. SG3">
+        <div class="promo-msg" id="promoMsg"></div>
+      </div>
+      <button type="submit" class="btn">Validate</button>
+    </form>
+  </div>
+
+  <div class="ticket" id="ticket">
+    <h3>Your ticket is ready!</h3>
+    <p id="ticketDetails"></p>
+    <p>Thank you for booking with NAS-INTO Italy.</p>
+    <button class="btn" onclick="downloadTicket()">Download PDF</button>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact us</h2>
+  <div class="contact">
+    <div>
+      <p><b>Phone:</b> <a href="tel:+261324831728">+261 32 48 317 28</a></p>
+      <p><b>Email:</b> <a href="mailto:contact@nas-into-italy.com">contact@nas-into-italy.com</a></p>
+      <p>Book before 15 November 2026.</p>
+    </div>
+    <a class="btn" href="mailto:contact@nas-into-italy.com?subject=Christmas%20pack%202026">Send us a message</a>
+  </div>
+</section>
+
+<footer>NAS-INTO Italy | Christmas &amp; New Year 2026</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="CEO enlarged">
+</div>
+
+<script>
+const form = document.getElementById('bookingForm');
+const promoInput = document.getElementById('promo');
+const promoMsg = document.getElementById('promoMsg');
+const ticket = document.getElementById('ticket');
+const ticketDetails = document.getElementById('ticketDetails');
+const bookingSection = document.getElementById('booking-section');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+
+function openBooking(packName) {
+  bookingSection.style.display = 'block';
+  document.getElementById('pack').value = packName;
+  ticket.style.display = 'none';
+  bookingSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function openLightbox(src){
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+}
+function closeLightbox(){
+  lightbox.classList.remove('active');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+promoInput.addEventListener('input', function() {
+  const code = this.value.trim().toUpperCase();
+  if (code === 'SG3') {
+    promoMsg.textContent = '✅ 5% discount applied!';
+    promoMsg.style.color = '#1f7a4d';
+  } else if (code === '') {
+    promoMsg.textContent = '';
+  } else {
+    promoMsg.textContent = '❌ Invalid code';
+    promoMsg.style.color = '#C8102E';
+  }
+});
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const pack = document.getElementById('pack').value;
+  const people = document.getElementById('people').value;
+  const promo = promoInput.value.trim().toUpperCase();
+  let discount = 0;
+  if (promo === 'SG3') discount = 5;
+
+  let message = `Pack: ${pack} | People: ${people}`;
+  if (discount > 0) {
+    message += ` | Discount: ${discount}%`;
+  }
+
+  ticketDetails.textContent = message;
+  ticket.style.display = 'block';
+  ticket.scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ---------- GÉNÉRATION DU PDF AVEC JSPDF DIRECTEMENT ---------- */
+function downloadTicket() {
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert("Erreur : la bibliothèque PDF n'est pas chargée. Vérifiez votre connexion internet.");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a5', orientation: 'portrait' });
+
+  const pack = document.getElementById('pack').value || '-';
+  const people = document.getElementById('people').value || '-';
+  const promo = promoInput.value.trim().toUpperCase();
+  const discount = (promo === 'SG3') ? '5% (code SG3)' : 'Aucune';
+  const ref = 'NAS-' + Date.now().toString().slice(-6);
+
+  const pageW = doc.internal.pageSize.getWidth();   // ~148 mm
+  const pageH = doc.internal.pageSize.getHeight();  // ~210 mm
+  const margin = 12;
+  let y = margin;
+
+  // Fond blanc
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, pageW, pageH, 'F');
+
+  // Bandeau vert en haut
+  doc.setFillColor(14, 77, 50);
+  doc.rect(0, 0, pageW, 30, 'F');
+
+  // Titre
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.text('NAS-INTO Italy', pageW / 2, 15, { align: 'center' });
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Christmas & New Year 2026', pageW / 2, 23, { align: 'center' });
+
+  y = 45;
+
+  // Titre ticket
+  doc.setTextColor(200, 16, 46);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text('YOUR TICKET IS READY', pageW / 2, y, { align: 'center' });
+  y += 14;
+
+  // Lignes du ticket
+  const rows = [
+    ['Pack', pack],
+    ['Number of people', people],
+    ['Promo discount', discount],
+    ['Reference', ref],
+    ['Contact', 'contact@nas-into-italy.com'],
+    ['Phone', '+261 32 48 317 28']
+  ];
+
+  doc.setFontSize(11);
+  rows.forEach((row, i) => {
+    // Fond alterné
+    if (i % 2 === 0) {
+      doc.setFillColor(248, 246, 241);
+      doc.rect(margin, y - 5, pageW - margin * 2, 10, 'F');
+    }
+    // Label
+    doc.setTextColor(91, 102, 96);
+    doc.setFont('helvetica', 'bold');
+    doc.text(row[0], margin + 2, y + 2);
+    // Valeur
+    doc.setTextColor(29, 36, 32);
+    doc.setFont('helvetica', 'normal');
+    doc.text(String(row[1]), margin + 60, y + 2);
+    y += 12;
+  });
+
+  y += 10;
+
+  // Bande tricolore
+  const flagW = 60;
+  const flagX = (pageW - flagW) / 2;
+  const flagY = y;
+  doc.setFillColor(31, 122, 77);
+  doc.rect(flagX, flagY, flagW / 3, 4, 'F');
+  doc.setFillColor(255, 255, 255);
+  doc.rect(flagX + flagW / 3, flagY, flagW / 3, 4, 'F');
+  doc.setFillColor(200, 16, 46);
+  doc.rect(flagX + (flagW / 3) * 2, flagY, flagW / 3, 4, 'F');
+  doc.setDrawColor(227, 221, 208);
+  doc.rect(flagX, flagY, flagW, 4, 'S');
+
+  y += 16;
+
+  // Message de remerciement
+  doc.setTextColor(91, 102, 96);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'italic');
+  doc.text('Thank you for booking with NAS-INTO Italy.', pageW / 2, y, { align: 'center' });
+
+  // Sauvegarde
+  doc.save('NAS-INTO-ticket-' + ref + '.pdf');
+}
+</script>
+</body>
+</html>
